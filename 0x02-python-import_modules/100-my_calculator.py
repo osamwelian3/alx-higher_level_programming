@@ -1,25 +1,20 @@
 #!/usr/bin/python3
-if __name__ == "__main__":
-    import sys
-    from calculator_1 import add, sub, mul, div
-    # Declarete distionarie whit functions
-    operator = {
-        '+': add,
-        '-': sub,
-        '*': mul,
-        '/': div
-    }
-    # Get the len of argvs
-    count = len(sys.argv)
-    argv = (sys.argv)
-    if (count != 4):
+import calculator_1 as calc
+import sys
+
+if __name__ == '__main__':
+    args = sys.argv
+    pname = args.pop(0)
+    if len(args) != 3:
         print("Usage: ./100-my_calculator.py <a> <operator> <b>")
         exit(1)
-    # Take the arguments to make the opceracion
-    elif (operator.get(argv[2]) == (None)):
+    if args[1] not in '+-*/':
         print("Unknown operator. Available operators: +, -, * and /")
         exit(1)
-    else:
-        r = operator.get(str(argv[2]))(int(argv[1]), int(argv[3]))
-        print('{:s} {:s} {:s} = {:d}'.format(argv[1], argv[2], argv[3], r))
-        exit(0)
+    a = int(args[0])
+    b = int(args[2])
+    funcs = (calc.add, calc.sub, calc.mul, calc.div)
+    for op, func in zip('+-*/', funcs):
+        if op == args[1]:
+            print("{:d} {:s} {:d} = {:d}".format(a, op, b, func(a, b)))
+            break
