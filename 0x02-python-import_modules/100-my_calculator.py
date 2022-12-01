@@ -1,20 +1,20 @@
 #!/usr/bin/python3
-import calculator_1 as calc
-import sys
+# 100-my_calculator.py
 
-if __name__ == '__main__':
-    args = sys.argv
-    pname = args.pop(0)
-    if len(args) != 3:
+if __name__ == "__main__":
+    """Handle basic arithmetic operations."""
+    from calculator_1 import add, sub, mul, div
+    import sys
+
+    if len(sys.argv) - 1 != 3:
         print("Usage: ./100-my_calculator.py <a> <operator> <b>")
-        exit(1)
-    if args[1] not in '+-*/':
+        sys.exit(1)
+
+    ops = {"+": add, "-": sub, "*": mul, "/": div}
+    if sys.argv[2] not in list(ops.keys()):
         print("Unknown operator. Available operators: +, -, * and /")
-        exit(1)
-    a = int(args[0])
-    b = int(args[2])
-    funcs = (calc.add, calc.sub, calc.mul, calc.div)
-    for op, func in zip('+-*/', funcs):
-        if op == args[1]:
-            print("{:d} {:s} {:d} = {:d}".format(a, op, b, func(a, b)))
-            exit(0)
+        sys.exit(1)
+
+    a = int(sys.argv[1])
+    b = int(sys.argv[3])
+    print("{} {} {} = {}".format(a, sys.argv[2], b, ops[sys.argv[2]](a, b)))
