@@ -17,4 +17,4 @@ if __name__ == '__main__':
     for op, func in zip('+-*/', funcs):
         if op == args[1]:
             print("{:d} {:s} {:d} = {:d}".format(a, op, b, func(a, b)))
-            break
+            exit(0)
